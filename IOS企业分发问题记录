@@ -12,6 +12,38 @@ IOS企业分发问题记录
 问题1: 部署好服务器 用户浏览器点击下载链接 提示 无法连接到www.test.com.cn
 
 将plist文件 与安装包 文件 添加到MIME 文件允许下载列表中 
+构建网站
+将这些项目上传到网站上可供已认证的用户访问的区域：
+
+应用 (.ipa) 文件
+
+清单 (.plist) 文件
+
+您的网站可以是链接到清单文件的单个页面。用户轻点 Web 链接后会下载清单文件，并触发下载和安装。
+
+以下是示例链接：
+
+<a href="itms-services://?action=download-manifest&url=https://example.com/manifest.plist">Install App</a>
+
+请勿添加归档应用 (.ipa) 的网站链接。载入清单文件时，设备会下载该 .ipa 文件。虽然 URL 的协议部分是“itms-services”，但 iTunes Store 并不参与此过程。
+
+此外，请确定 .ipa 文件可通过 HTTPS 进行访问，并且您的站点已使用 iOS 信任的证书进行了签名。如果自签名证书没有受信任的锚点并且无法由 iOS 设备验证，安装会失败。
+
+设定服务器 MIME 类型
+您可能需要配置 Web 服务器，让清单文件和应用文件可正确传输。
+
+对于 Server 应用，请将 MIME 类型添加到网页服务的 MIME 类型设置：
+
+application/octet-stream ipa
+
+text/xml plist
+
+对于微软的互联网信息服务器 (IIS)，请使用 IIS Manager 在服务器的“属性”页面中添加 MIME 类型：
+
+.ipa application/octet-stream
+
+.plist text/xml
+
 
 
 以后有问题继续 更新 
